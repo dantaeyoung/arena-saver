@@ -1,9 +1,10 @@
 <template>
   <div>
-    <ArenaLoader>
-      <ArenaFrame /> 
-    </ArenaLoader>
-
+    <Configs>
+      <ArenaLoader>
+        <ArenaFrame /> 
+      </ArenaLoader>
+    </Configs>
   </div>
 </template>
 <style>

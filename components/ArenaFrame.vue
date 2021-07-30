@@ -80,14 +80,12 @@ a {
 </style>
 
 <script>
-var default_interval = 100000;
 
 export default {
 
   data() {
     return {
       polling: null,
-      interval: 5000,
       block: null,
       blockId: null,
     }
@@ -113,6 +111,9 @@ export default {
     channels_datas: function () {
       return this.$store.state.channels_datas
     },
+    interval: function () {
+      return this.$store.state.interval
+    },
     blockParentChannel: function () {
       return this.channels_datas[this.block['source_channel_slug']]
     },
@@ -129,11 +130,6 @@ export default {
     },
   },
   created() {
-    if ('interval' in this.$route.query) {
-      this.interval = this.$route.query['interval']
-    } else {
-      this.interval = default_interval;
-    }
   },
   mounted() {
     this.changeBlock()

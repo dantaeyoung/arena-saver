@@ -19,12 +19,10 @@ const Arena = require("are.na");
 const arena = new Arena();
 
 var api_url_channels = 'https://api.are.na/v2/channels/'
-var default_meta_channel = "channels-for-ambient-screens"
 
 export default {
   data() {
     return {
-      meta_channel: "",
       channels: [],
       channels_slugs: [],
       data_loaded: false,
@@ -56,7 +54,7 @@ export default {
             per: 100, //currently only gets 100 blocks
           })
         .then(d => {
-          console.log(d);
+//          console.log(d);
           return d;
       })
     })
@@ -81,7 +79,7 @@ export default {
           });
         });
 
-        console.log(Object.keys(all_content_by_id));
+//        console.log(Object.keys(all_content_by_id));
 
         this.data_loaded = true;
         this.$store.commit("set_all_content_by_id", all_content_by_id);
@@ -96,13 +94,11 @@ export default {
     },
   },
   computed: {
+    meta_channel() {
+      return this.$store.state.meta_channel;
+    },
   },
   created() {
-    if ('channel' in this.$route.query) {
-      this.meta_channel = this.$route.query['channel']
-    } else {
-      this.meta_channel = default_meta_channel;
-    }
   },
 }
 </script>
