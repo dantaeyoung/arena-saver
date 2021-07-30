@@ -6,12 +6,12 @@
         <div class="title">{{ block.title }}</div>
         <div class="description">{{ block.description }}</div>
         <div class="addedby">
-          Added by <span class="user"> {{ block.user.full_name }} </span>
+          Added by <a target="_newtab" :href="'https://www.are.na/' + block.user.slug"><span class="user"> {{ block.user.full_name }} </span></a>
         </div>
         <div class="from-channel">
           From the channel
-          <span class="channel-title">{{ blockParentChannel.title }}</span> by
-          <span class="user"> {{ blockParentChannel.user.full_name }}</span>
+          <a target="_newtab" :href="'https://www.are.na/' + blockParentChannel.user.slug + '/'+ blockParentChannel.slug"><span class="channel-title">{{ blockParentChannel.title }}</span></a> by
+          <a target="_newtab" :href="'https://www.are.na/' + blockParentChannel.user.slug"><span class="user"> {{ blockParentChannel.user.full_name }}</span></a>
         </div>
       </div>
     </div>
@@ -43,6 +43,11 @@ img {
   width: 100%;
   height: 100%;
   object-fit:contain;
+}
+
+a {
+  color: #777;
+  text-decoration: none;
 }
 
 .image {
