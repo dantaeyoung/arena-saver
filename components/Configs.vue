@@ -1,6 +1,5 @@
 <template>
   <div class="config">
-    ok {{ meta_channel }} {{interval }}
     <slot></slot>
   </div>
 </template>
