@@ -4,7 +4,7 @@ created with [nuxt](https://nuxtjs.org/).
 
 live at https://arena-gallery.netlify.app/
 
-meant to be used with [websecreensaver](https://github.com/lmartinking/webscreensaver) or [webviewscreensaver](https://github.com/liquidx/webviewscreensaver).
+meant to be used with [webscreensaver](https://github.com/lmartinking/webscreensaver) or [webviewscreensaver](https://github.com/liquidx/webviewscreensaver).
 
 ## urlparams/config
 
