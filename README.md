@@ -14,6 +14,8 @@ meant to be used with [webscreensaver](https://github.com/lmartinking/webscreens
 
 (ex: https://arena-gallery.netlify.app/?channel=mais-oui-images)
 
+**NOTE: ** will only load the images from the channels in this channel. So... if you have a channel with only blocks in it, it won't load any images. 
+
 ### interval
 
 `interval` parameter sets the interval in milliseconds (default: 10000, or 10 seconds)
