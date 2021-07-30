@@ -4,7 +4,6 @@
       <div class="image"><img :src="block.image.original.url" /></div>
       <div class="title">{{ block.title }}</div>
       <div class="description">{{ block.description }}</div>
-      <div class="description_html">{{ block.description_html }}</div>
       <div class="addedby">
         Added by <span class="user"> {{ block.user.full_name }} </span>
       </div>
@@ -27,8 +26,16 @@
   justify-content: center;
   flex-direction: row;
   background-color: black;
-  background-color: black;
   color: #aaa;
+  font-family: 'Inconsolata', monospace;
+}
+
+.block {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 img {
@@ -40,9 +47,18 @@ img {
   max-width: 500px;
 }
 
-.title {
+.title, .description {
   display: none;
 }
+
+.channel-title {
+  font-weight: 400;
+}
+
+.user {
+  font-style: italic; 
+}
+
 </style>
 
 <script>

@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'arena-screensaver',
+    title: 'arena-gallery',
     htmlAttrs: {
       lang: 'en'
     },
@@ -31,7 +31,9 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+
   buildModules: [
+     '@nuxtjs/google-fonts',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -40,5 +42,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  googleFonts: {
+    families: {
+      Inconsolata: [200, 400],
+    },
+    download: true,
   }
 }
