@@ -37,7 +37,11 @@ export default {
       .get()
       .then(chan => {
         this.channels = chan.contents
+      })
+      .catch(err => {
+        console.log(err)
       });
+    
 
     // get slugs of channels
 
