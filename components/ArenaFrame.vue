@@ -1,19 +1,22 @@
 <template>
   <div class="arenaframe">
     <div class="block" v-if="blockImageUrl != null">
-      <div class="image"><img :src="block.image.original.url" /></div>
+      <div class="image"><img :src="blockImageUrl" /></div>
       <div class="caption">
         <div class="title">{{ block.title }}</div>
         <div class="description">{{ block.description }}</div>
-        <div class="addedby">
-          Added by <a target="_newtab" :href="'https://www.are.na/' + block.user.slug"><span class="user"> {{ block.user.full_name }} </span></a>
+        <div class="addedby" v-if="'user' in block">
+          Added by <a target="_newtab" :href="'https://www.are.na/' + block.user.slug"><span class="user">{{ blockUserFullname }} </span></a>
         </div>
-        <div class="from-channel">
+        <div class="from-channel" v-if="'user' in blockParentChannel">
           From the channel
           <a target="_newtab" :href="'https://www.are.na/' + blockParentChannel.user.slug + '/'+ blockParentChannel.slug"><span class="channel-title">{{ blockParentChannel.title }}</span></a> by
           <a target="_newtab" :href="'https://www.are.na/' + blockParentChannel.user.slug"><span class="user"> {{ blockParentChannel.user.full_name }}</span></a>
         </div>
       </div>
+    </div>
+    <div v-else class="loading">
+      <Loader />
     </div>
   </div>
 </template>
@@ -88,6 +91,7 @@ export default {
       polling: null,
       block: null,
       blockId: null,
+      timeout: null,
     }
   },
   methods: {
@@ -100,8 +104,10 @@ export default {
 
       if(this.blockImageUrl == null) { 
         console.log("uh oh, this block might not have an image. let's change again");
-        this.changeBlock();
+//        this.changeBlock();
       }
+
+      this.timeout = setTimeout(this.changeBlock, this.interval);
     },
   },
   computed: {
@@ -128,17 +134,24 @@ export default {
         }
       }
     },
+    blockUserFullname() {
+      try {
+        return this.block.user.full_name;
+      } catch {
+        return null;
+      }
+    },
   },
   created() {
   },
   mounted() {
     this.changeBlock()
-    this.polling = setInterval(() => {
-      this.changeBlock()
-    }, this.interval)
+//    this.polling = setInterval(() => {
+//      this.changeBlock()
+//    }, this.interval)
   },
   beforeDestroy() {
-    clearInterval(this.polling)
+//    clearInterval(this.polling)
   },
 }
 </script>
