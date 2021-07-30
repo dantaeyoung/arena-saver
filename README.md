@@ -2,13 +2,15 @@
 
 ![insitu.png](insitu.png)
 
-arena-saver is a website meant to be a screensaver based off of an are.na channel.
+arena-saver floats images ambiently in your environment
 
 live at [arena-saver.netlify.app](https://arena-saver.netlify.app)
 
 inspired by [arenaTAB by Foreign Objects](https://github.com/FOREIGN-OBJECTS/arenaTab).
 
 ## ideal use
+
+arena-saver is a website meant to be a screensaver based off of an are.na channel.
 
 use this as a full-page screensaver.
 
