@@ -1,26 +1,33 @@
-# arena-screensaver
+# arena-saver
 
-created with [nuxt](https://nuxtjs.org/).
+arena-saver is a website meant to be a screensaver based off of an are.na channel.
 
 live at https://arena-gallery.netlify.app/
 
-meant to be used with [webscreensaver](https://github.com/lmartinking/webscreensaver) or [webviewscreensaver](https://github.com/liquidx/webviewscreensaver).
+inspired by [arenaTAB by Foreign Objects](https://github.com/FOREIGN-OBJECTS/arenaTab).
 
-## urlparams/config
+## ideal use
+
+use this as a full-page screensaver.
+
+- Linux: use [webscreensaver](https://github.com/lmartinking/webscreensaver)
+- macOS: use [webviewscreensaver](https://github.com/liquidx/webviewscreensaver).
+
+## config
 
 ### channel
 
-`channel` parameter sets the meta channel (default: [channels-for-ambient-screens](https://www.are.na/dan-taeyoung/channels-for-ambient-screens) )
+`channel` parameter sets the *meta channel* (default: [channels-for-ambient-screens](https://www.are.na/dan-taeyoung/channels-for-ambient-screens) )
 
-(ex: https://arena-gallery.netlify.app/?channel=mais-oui-images)
+(ex: https://arena-saver.netlify.app/?channel=mais-oui-images)
 
-**NOTE: ** will only load the images from the channels in this channel. So... if you have a channel with only blocks in it, it won't load any images. 
+**NOTE:** currently, arena-saver won't display the channel's blocks. arena-saver looks inside each channel (inside the meta-channel) and looks at those blocks, instead. so if you give it a single channel only containing blocks, nothing will be displayed.
 
 ### interval
 
 `interval` parameter sets the interval in milliseconds (default: 10000, or 10 seconds)
 
-(ex: https://arena-gallery.netlify.app/?interval=5000)
+(ex: https://arena-saver.netlify.app/?interval=5000)
 
 
 
@@ -33,6 +40,9 @@ meant to be used with [webscreensaver](https://github.com/lmartinking/webscreens
 
 
 ## Dev/Setup
+
+
+created with [nuxt](https://nuxtjs.org/).
 
 ```
 bash
