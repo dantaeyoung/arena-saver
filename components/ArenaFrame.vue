@@ -2,15 +2,17 @@
   <div class="arenaframe">
     <div class="block" v-if="blockImageUrl != null">
       <div class="image"><img :src="block.image.original.url" /></div>
-      <div class="title">{{ block.title }}</div>
-      <div class="description">{{ block.description }}</div>
-      <div class="addedby">
-        Added by <span class="user"> {{ block.user.full_name }} </span>
-      </div>
-      <div class="from-channel">
-        From the channel
-        <span class="channel-title">{{ blockParentChannel.title }}</span> by
-        <span class="user"> {{ blockParentChannel.user.full_name }}</span>
+      <div class="caption">
+        <div class="title">{{ block.title }}</div>
+        <div class="description">{{ block.description }}</div>
+        <div class="addedby">
+          Added by <span class="user"> {{ block.user.full_name }} </span>
+        </div>
+        <div class="from-channel">
+          From the channel
+          <span class="channel-title">{{ blockParentChannel.title }}</span> by
+          <span class="user"> {{ blockParentChannel.user.full_name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -26,12 +28,11 @@
   justify-content: center;
   flex-direction: row;
   background-color: black;
-  color: #aaa;
-  font-family: 'Inconsolata', monospace;
 }
 
 .block {
-  height: 90%;
+  height: 80%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +41,21 @@
 
 img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit:contain;
 }
 
 .image {
-  max-width: 500px;
+  width: 100%;
+  height: calc(100% - 40px);
+}
+
+.caption {
+  height: 20px;
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #777;
+  font-family: 'Inconsolata', monospace;
 }
 
 .title, .description {
@@ -52,11 +63,14 @@ img {
 }
 
 .channel-title {
-  font-weight: 400;
+  font-style: italic; 
+  font-weight: bold;
+  color: #999;
 }
 
 .user {
   font-style: italic; 
+  color: #999;
 }
 
 </style>
@@ -66,7 +80,7 @@ export default {
   data() {
     return {
       polling: null,
-      imageInterval: 100000,
+      imageInterval: 5000,
       block: null,
       blockId: null,
     }
