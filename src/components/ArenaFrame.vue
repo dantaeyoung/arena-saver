@@ -1,113 +1,101 @@
 <template>
-  <div>
-    <div :v-if="data_loaded">
-      <slot>
-      </slot>
+  <div class="arenaframe">
+    <div class="block" v-if="blockImageUrl != null">
+      <div class="image"><img :src="block.image.original.url" /></div>
+      <div class="title">{{ block.title }}</div>
+      <div class="description">{{ block.description }}</div>
+      <div class="description_html">{{ block.description_html }}</div>
+      <div class="addedby">
+        Added by <span class="user"> {{ block.user.full_name }} </span>
+      </div>
+      <div class="from-channel">
+        From the channel
+        <span class="channel-title">{{ blockParentChannel.title }}</span> by
+        <span class="user"> {{ blockParentChannel.user.full_name }}</span>
+      </div>
     </div>
   </div>
 </template>
 
-<style>
-.nuxt-logo {
-  height: 180px;
+<style scoped>
+
+.arenaframe {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: black;
+  background-color: black;
+  color: #aaa;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.image {
+  max-width: 500px;
+}
+
+.title {
+  display: none;
 }
 </style>
 
 <script>
-var api_url_channels = 'https://api.are.na/v2/channels/'
-var default_meta_channel = "channels-for-ambient-screens"
-
 export default {
   data() {
     return {
-      meta_channel: "",
-      channels: [],
-      channels_slugs: [],
-      data_loaded: false,
       polling: null,
-      imageInterval: 5000,
+      imageInterval: 100000,
+      block: null,
+      blockId: null,
     }
-  },
-  async fetch() {
-
-    // get meta_channel contents
-
-    var data = await fetch(api_url_channels + this.meta_channel)
-      .then((res) => res.json())
-    try {
-      this.channels = data.contents
-    } catch {
-      this.channels = []
-    }
-
-    // get slugs of channels
-
-    this.channels_slugs = this.channels.map(c => {
-      return c['slug'];
-    });
-
-    var promises = this.channels_slugs.map(slug => {
-      console.log(api_url_channels + slug)
-      return fetch(api_url_channels + slug)
-        .then(response => response.json())
-        .then(d => {
-          return d;
-          var res = {};
-          res[slug] = d;
-          return res;
-      })
-    })
-
-    // get channels datas
-
-    await Promise.all(promises)
-      .then(data => {
-
-        var channels_datas = {};
-        Object.values(data).forEach(chdata => {
-          channels_datas[chdata['slug']] = chdata;
-        });
-
-
-        var all_content_by_id = {};
-
-        Object.values(channels_datas).forEach(ch => {
-          ch.contents.forEach(d => {
-            all_content_by_id[d['id']] = d;
-            all_content_by_id[d['id']]['source_channel_slug'] = ch['slug']
-          });
-        });
-
-        this.data_loaded = true;
-        this.$store.commit("set_all_content_by_id", all_content_by_id);
-        this.$store.commit("set_channels_datas", channels_datas);
-
-      })
   },
   methods: {
-    changeBlock: function() {
-      var contentId = this.all_content_by_id[Math.floor(Math.random() * this.all_content_by_id.length)];
-      console.log("changing images to !" + contentId);
-//      this.blockData = 
+    changeBlock: function () {
+      this.blockId = Object.keys(this.all_content_by_id)[
+        Math.floor(Math.random() * Object.keys(this.all_content_by_id).length)
+      ]
+
+      console.log('changing images to !' + this.blockId)
+      this.block = this.all_content_by_id[this.blockId]
     },
   },
   computed: {
+    all_content_by_id: function () {
+      return this.$store.state.all_content_by_id
+    },
+    channels_datas: function () {
+      return this.$store.state.channels_datas
+    },
+    blockParentChannel: function () {
+      return this.channels_datas[this.block['source_channel_slug']]
+    },
+    blockImageUrl: function () {
+      try {
+        return this.block.image.original.url
+      } catch {
+        try {
+          return this.block.image.large.url
+        } catch {
+          return null
+        }
+      }
+    },
   },
-  created() {
-    console.log(this.$route.query)
-    if ('channel' in this.$route.query) {
-      this.meta_channel = this.$route.query['channel']
-    } else {
-      this.meta_channel = default_meta_channel;
-    }
-  },
+  created() {},
   mounted() {
-    this.polling = setInterval(()=>{
-      this.changeBlock();
+    this.changeBlock()
+    this.polling = setInterval(() => {
+      this.changeBlock()
     }, this.imageInterval)
   },
-  beforeDestroy () {
-    clearInterval(this.polling);
+  beforeDestroy() {
+    clearInterval(this.polling)
   },
 }
 </script>

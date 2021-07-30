@@ -24,8 +24,6 @@ export default {
       channels: [],
       channels_slugs: [],
       data_loaded: false,
-      polling: null,
-      imageInterval: 5000,
     }
   },
   async fetch() {
@@ -100,14 +98,6 @@ export default {
     } else {
       this.meta_channel = default_meta_channel;
     }
-  },
-  mounted() {
-    this.polling = setInterval(()=>{
-      this.changeBlock();
-    }, this.imageInterval)
-  },
-  beforeDestroy () {
-    clearInterval(this.polling);
   },
 }
 </script>
