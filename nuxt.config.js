@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'arena-gallery',
+    title: 'arena-saver',
     htmlAttrs: {
       lang: 'en'
     },
