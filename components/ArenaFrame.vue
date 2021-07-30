@@ -76,11 +76,14 @@ img {
 </style>
 
 <script>
+var default_interval = 100000;
+
 export default {
+
   data() {
     return {
       polling: null,
-      imageInterval: 5000,
+      interval: 5000,
       block: null,
       blockId: null,
     }
@@ -90,9 +93,13 @@ export default {
       this.blockId = Object.keys(this.all_content_by_id)[
         Math.floor(Math.random() * Object.keys(this.all_content_by_id).length)
       ]
-
       console.log('changing images to !' + this.blockId)
       this.block = this.all_content_by_id[this.blockId]
+
+      if(this.blockImageUrl == null) { 
+        console.log("uh oh, this block might not have an image. let's change again");
+        this.changeBlock();
+      }
     },
   },
   computed: {
@@ -117,12 +124,18 @@ export default {
       }
     },
   },
-  created() {},
+  created() {
+    if ('interval' in this.$route.query) {
+      this.interval = this.$route.query['interval']
+    } else {
+      this.interval = default_interval;
+    }
+  },
   mounted() {
     this.changeBlock()
     this.polling = setInterval(() => {
       this.changeBlock()
-    }, this.imageInterval)
+    }, this.interval)
   },
   beforeDestroy() {
     clearInterval(this.polling)

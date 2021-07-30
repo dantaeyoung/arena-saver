@@ -14,6 +14,10 @@
 </style>
 
 <script>
+
+const Arena = require("are.na");
+const arena = new Arena();
+
 var api_url_channels = 'https://api.are.na/v2/channels/'
 var default_meta_channel = "channels-for-ambient-screens"
 
@@ -28,15 +32,12 @@ export default {
   },
   async fetch() {
 
-    // get meta_channel contents
-
-    var data = await fetch(api_url_channels + this.meta_channel)
-      .then((res) => res.json())
-    try {
-      this.channels = data.contents
-    } catch {
-      this.channels = []
-    }
+    await arena
+      .channel(this.meta_channel)
+      .get()
+      .then(chan => {
+        this.channels = chan.contents
+      });
 
     // get slugs of channels
 
@@ -45,14 +46,14 @@ export default {
     });
 
     var promises = this.channels_slugs.map(slug => {
-      console.log(api_url_channels + slug)
-      return fetch(api_url_channels + slug)
-        .then(response => response.json())
+      return arena.channel(slug)
+        .get({ 
+            page: 1, 
+            per: 100, //currently only gets 100 blocks
+          })
         .then(d => {
+          console.log(d);
           return d;
-          var res = {};
-          res[slug] = d;
-          return res;
       })
     })
 
@@ -76,6 +77,8 @@ export default {
           });
         });
 
+        console.log(Object.keys(all_content_by_id));
+
         this.data_loaded = true;
         this.$store.commit("set_all_content_by_id", all_content_by_id);
         this.$store.commit("set_channels_datas", channels_datas);
@@ -86,13 +89,11 @@ export default {
     changeBlock: function() {
       var contentId = this.all_content_by_id[Math.floor(Math.random() * this.all_content_by_id.length)];
       console.log("changing images to !" + contentId);
-//      this.blockData = 
     },
   },
   computed: {
   },
   created() {
-    console.log(this.$route.query)
     if ('channel' in this.$route.query) {
       this.meta_channel = this.$route.query['channel']
     } else {
