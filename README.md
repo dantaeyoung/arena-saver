@@ -1,10 +1,10 @@
 # arena-screensaver
 
-created with nuxt.
+created with [nuxt](https://nuxtjs.org/).
 
 live at https://arena-gallery.netlify.app/
 
-meant to be used with https://github.com/lmartinking/webscreensaver for use on a raspberry pi as a screensaver.
+meant to be used with [websecreensaver](https://github.com/lmartinking/webscreensaver) or [webviewscreensaver](https://github.com/liquidx/webviewscreensaver).
 
 ## urlparams/config
 
