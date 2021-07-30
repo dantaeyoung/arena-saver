@@ -69,7 +69,6 @@ a {
 
 .channel-title {
   font-style: italic; 
-  font-weight: bold;
   color: #999;
 }
 
