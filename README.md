@@ -4,7 +4,7 @@
 
 arena-saver is a website meant to be a screensaver based off of an are.na channel.
 
-live at https://arena-gallery.netlify.app/
+live at [arena-saver.netlify.app](https://arena-saver.netlify.app)
 
 inspired by [arenaTAB by Foreign Objects](https://github.com/FOREIGN-OBJECTS/arenaTab).
 
