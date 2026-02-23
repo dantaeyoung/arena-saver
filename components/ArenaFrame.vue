@@ -71,12 +71,12 @@ a {
 }
 
 .channel-title {
-  font-style: italic; 
+  font-style: italic;
   color: #999;
 }
 
 .user {
-  font-style: italic; 
+  font-style: italic;
   color: #999;
 }
 
@@ -88,42 +88,40 @@ export default {
 
   data() {
     return {
-      polling: null,
       block: null,
       blockId: null,
       timeout: null,
     }
   },
   methods: {
-    changeBlock: function () {
+    changeBlock() {
       this.blockId = Object.keys(this.all_content_by_id)[
         Math.floor(Math.random() * Object.keys(this.all_content_by_id).length)
       ]
-      console.log('changing images to !' + this.blockId)
       this.block = this.all_content_by_id[this.blockId]
 
-      if(this.blockImageUrl == null) { 
-        console.log("uh oh, this block might not have an image. let's change again");
-//        this.changeBlock();
+      if(this.blockImageUrl == null) {
+        this.changeBlock();
+        return;
       }
 
       this.timeout = setTimeout(this.changeBlock, this.interval);
     },
   },
   computed: {
-    all_content_by_id: function () {
+    all_content_by_id() {
       return this.$store.state.all_content_by_id
     },
-    channels_datas: function () {
+    channels_datas() {
       return this.$store.state.channels_datas
     },
-    interval: function () {
+    interval() {
       return this.$store.state.interval
     },
-    blockParentChannel: function () {
+    blockParentChannel() {
       return this.channels_datas[this.block['source_channel_slug']]
     },
-    blockImageUrl: function () {
+    blockImageUrl() {
       try {
         return this.block.image.original.url
       } catch {
@@ -142,16 +140,11 @@ export default {
       }
     },
   },
-  created() {
-  },
   mounted() {
     this.changeBlock()
-//    this.polling = setInterval(() => {
-//      this.changeBlock()
-//    }, this.interval)
   },
   beforeDestroy() {
-//    clearInterval(this.polling)
+    clearTimeout(this.timeout)
   },
 }
 </script>

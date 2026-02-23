@@ -45,8 +45,8 @@ button {
 
 <script>
 
-var default_meta_channel = "channels-for-ambient-screens"
-var default_interval = 10000;
+const default_meta_channel = "channels-for-ambient-screens"
+const default_interval = 10000;
 
 export default {
   data() {
@@ -58,10 +58,10 @@ export default {
     }
   },
   created() {
-    var mc = this.getQueryOrDefault('meta_channel', default_meta_channel)
+    const mc = this.getQueryOrDefault('meta_channel', default_meta_channel)
     this.meta_channel_input = mc;
 
-    var intv = this.getQueryOrDefault('interval', default_interval)
+    const intv = parseInt(this.getQueryOrDefault('interval', default_interval))
     this.interval_input = intv;
 
     this.$store.commit("set_meta_channel", mc);
@@ -69,20 +69,13 @@ export default {
   },
   methods: {
     reloadSite() {
-      var params = {
+      const params = {
         meta_channel: this.meta_channel_input,
         interval: this.interval_input,
       };
-      var newpath = this.$route.path + "?" ;
-      newpath += "interval=" + this.interval_input + "&";
-      newpath += "meta_channel=" + this.meta_channel_input + "&";
-      console.log(newpath);
       this.$store.commit("set_meta_channel", this.meta_channel_input)
       this.$store.commit("set_interval", this.interval_input)
-      this.$router.push({path: this.$route.path, query : params }); // NOT WOKRING
-//      location.reload();
-      
-//      this.$router.go();
+      this.$router.replace({path: this.$route.path, query: params});
     },
     getQueryOrDefault(querytag, def) {
       if (querytag in this.$route.query) {
@@ -92,11 +85,10 @@ export default {
       }
     },
     mousemove() {
-      var self = this;
-      self.showOverlay = true;
+      this.showOverlay = true;
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(function() {
-        self.showOverlay = false;
+      this.timeout = setTimeout(() => {
+        this.showOverlay = false;
       }, 3000);
     },
   },
@@ -110,4 +102,3 @@ export default {
   },
 }
 </script>
-
