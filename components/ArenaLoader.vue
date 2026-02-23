@@ -37,17 +37,24 @@ export default {
       return c['slug']
     })
 
-    const promises = this.channels_slugs.map((slug) => {
-      return arena
-        .channel(slug)
-        .get({
-          page: 1,
-          per: 100, //currently only gets 100 blocks
-        })
-        .then((d) => {
-          return d
-        })
-    })
+    const fetchAllPages = async (slug) => {
+      const first = await arena.channel(slug).get({ page: 1, per: 100 })
+      const total = first.length
+      if (total <= 100) return first
+
+      const totalPages = Math.ceil(total / 100)
+      const remainingPages = []
+      for (let p = 2; p <= totalPages; p++) {
+        remainingPages.push(arena.channel(slug).get({ page: p, per: 100 }))
+      }
+      const pages = await Promise.all(remainingPages)
+      pages.forEach((page) => {
+        first.contents = first.contents.concat(page.contents)
+      })
+      return first
+    }
+
+    const promises = this.channels_slugs.map((slug) => fetchAllPages(slug))
 
     // get channels datas
 

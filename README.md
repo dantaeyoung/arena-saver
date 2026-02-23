@@ -21,9 +21,9 @@ use this as a full-page screensaver.
 
 ### channel
 
-`channel` parameter sets the *meta channel* (default: [channels-for-ambient-screens](https://www.are.na/dan-taeyoung/channels-for-ambient-screens) )
+`meta_channel` parameter sets the *meta channel* (default: [channels-for-ambient-screens](https://www.are.na/dan-taeyoung/channels-for-ambient-screens) )
 
-(ex: https://arena-saver.netlify.app/?channel=mais-oui-images)
+(ex: https://arena-saver.netlify.app/?meta_channel=mais-oui-images)
 
 **NOTE:** currently, arena-saver won't display the channel's blocks. arena-saver looks inside each channel (inside the meta-channel) and looks at those blocks, instead. so if you give it a single channel only containing blocks, nothing will be displayed.
 
@@ -37,8 +37,8 @@ use this as a full-page screensaver.
 
 ## Todos:
 
-- [] load more than 100 blocks from a channel
-- [] deal with text
+- [x] load more than 100 blocks from a channel
+- [ ] deal with text
 - ???
 
 
